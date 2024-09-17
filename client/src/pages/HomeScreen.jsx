@@ -9,7 +9,7 @@ function HomeScreen(){
     <>
       <NavBar/> 
 
-      <div class = 'title'>
+      <div className = 'title'>
           <h1>G U P T</h1>
       </div>
 
