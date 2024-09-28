@@ -48,3 +48,4 @@ Inspiration drawn from -
 
 ## Deployed Links
 [Deployed Backend](https://s47-sid-capstone-gupt.onrender.com)
+[Deplyed Frontend](https://gupt.vercel.app/)
