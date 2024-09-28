@@ -1,0 +1,47 @@
+a {
+  text-decoration: none;
+  color: whitesmoke; /* Keeps the text color */
+  font-weight: 700;
+  transition: color 0.3s ease-in-out, text-decoration 0.3s ease-in-out;
+}
+
+a:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+
+/* Additional styles remain unchanged */
+.Matrix {
+  position: absolute;
+  left: 0vw;
+}
+
+.Clickables {
+  position: absolute;
+  right: 20px;
+  font-size: 1.5rem;
+}
+
+.Clickables > * {
+  margin-right: 8vw;
+  font-weight: 800;
+  letter-spacing: 0.4vw;
+  font-size: 1.5rem;
+}
+
+.Clickables > *:last-child {
+  margin-right: 0;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.5rem;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+nav {
+  font-family: Orbitron;
+  animation: fadeIn 3s forwards;
+}

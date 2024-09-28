@@ -1,19 +1,18 @@
+import { Link } from "react-router-dom";
+import "../styles/NavBar.css"
 
-
-function NavBar(){
-
-
+function NavBar() {
   return (
     <nav>
-      <p className ="Matrix">[M a t r i x] </p>
-      <div className = "Clickables">
-        <span>AboutUs</span>
-        <span>Documentation</span>
-        <span>SignUp</span>
-        </div>
+      <p className="Matrix">[M a t r i x]</p>
+      <div className="Clickables">
+        <Link to="/aboutus">AboutUs</Link>
+        <Link to="/documentation">Documentation</Link>
+        <Link to="/signup">SignUp</Link>
+      </div>
     </nav>
-
-  )
+  );
 }
 
 export default NavBar;
+
