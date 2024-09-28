@@ -6,7 +6,8 @@ require("dotenv").config();
 const app = express();
 
 //variables
-const DB = process.env.dbURI; 
+const DB = process.env.dbURI;
+const port = process.env.PORT || 4000;
 
 
 //middleware 
@@ -23,7 +24,7 @@ app.use(cors())
 async function dbConnect(URI){
   try{
     await mongoose.connect(URI);
-    app.listen(3000, () => console.log("Life is connected"));
+    app.listen(port, () => console.log("Life is connected"));
   } catch (err) {
     console.log(`Life is not connected: ${err}`);
   }
