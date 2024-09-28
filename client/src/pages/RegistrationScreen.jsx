@@ -17,7 +17,6 @@ function RegistrationScreen() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(`email is ${email} and password is ${password}`);
 
     try {
       const res = await fetch("http://localhost:3000/signup", {
