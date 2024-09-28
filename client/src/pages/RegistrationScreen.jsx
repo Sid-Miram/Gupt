@@ -34,7 +34,7 @@ function RegistrationScreen() {
       }
       
     } catch (error) {
-      console.log(err)
+      console.log(error)
     }
     setEmail("");
     setPassword("");
