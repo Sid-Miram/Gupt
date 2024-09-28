@@ -19,7 +19,7 @@ function RegistrationScreen() {
     event.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:3000/signup", {
+      const res = await fetch("https://s47-sid-capstone-gupt.onrender.com/signup", {
         method: "POST",
         body: JSON.stringify({email, password}),
         headers: {'Content-type': 'application/json'},
