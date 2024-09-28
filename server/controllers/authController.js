@@ -26,8 +26,13 @@ function handleError(err){
 
 // controllers 
 
-module.exports.signup_get = (req, res) => {
-  res.send("Start Life");
+module.exports.signup_get = async (req, res) => {
+  try{
+    const data = await User.find({})
+    res.json(data);
+  } catch(error){
+    console.log(error);
+  }
 }
 
 module.exports.login_get = (req, res) => {
@@ -35,8 +40,11 @@ module.exports.login_get = (req, res) => {
 }
 
 module.exports.signup_post = async (req,res) => {
+  const {email, password} = req.body;
   try{
-    res.send("Info sent succesfully");
+    const user = await User.create({email, password});
+    console.log(user);
+    res.status(201).json(user);
   } catch (err) {
     const errors = handleError(err);
     res.status(400).json(errors);
