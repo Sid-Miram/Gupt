@@ -1,17 +1,17 @@
 import React from 'react';
-import { Icon } from '@iconify-icon/react';
+import { Icon } from '@iconify-icon/react';  // Make sure this import is correct
 
 function AboutUsScreen() {
   return (
     <div style={styles.container}>
       <h1 style={styles.heading}>About Us</h1>
       <p style={styles.text}>
-        Hi! I'm Sid, a second-year B.Tech student at JECRC University, pursuing Software Product Engineering under the Kalvium program. 
-        I’m passionate about coding, competitive programming, and creating innovative software solutions. Currently, I’m working on a 
+        Hi! I'm Sid, a second-year B.Tech student at JECRC University, pursuing Software Product Engineering under the Kalvium program.
+        I’m passionate about coding, competitive programming, and creating innovative software solutions. Currently, I’m working on a
         chat messaging app called 'Gupt,' which is designed for privacy-focused communication, especially for investigative journalists.
       </p>
       <p style={styles.text}>
-        My tech stack includes Node.js, Express, MongoDB, React, C++, and I'm actively learning more about system design and protocols 
+        My tech stack includes Node.js, Express, MongoDB, React, C++, and I'm actively learning more about system design and protocols
         like Matrix. I also participate in competitive programming and enjoy building efficient solutions to complex problems.
       </p>
       <p style={styles.text}>
@@ -25,7 +25,7 @@ function AboutUsScreen() {
           rel="noopener noreferrer" 
           style={styles.iconLink}
         >
-          <Icon icon="skill-icons:github-light" style={styles.icon} />
+          <Icon icon="skill-icons:github-light" style={{ fontSize: '3rem', color: '#000' }} />
         </a>
       </div>
     </div>
@@ -59,10 +59,6 @@ const styles = {
   iconLink: {
     textDecoration: 'none',
   },
-  icon: {
-    fontSize: '3rem',
-    color: '#000',  // Ensures the icon is visible
-  }``,
 };
 
 export default AboutUsScreen;
