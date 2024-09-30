@@ -16,7 +16,7 @@ const port = process.env.PORT || 4000;
 app.use(cookieParser())
 app.use(express.json())
 app.use(cors({
-  origin: 'https://gupt.vercel.app/',
+  origin: "https://gupt.vercel.app",
   credentials: true, // This allows the server to accept cookies from the client
 }));
 
