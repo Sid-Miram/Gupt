@@ -1,0 +1,10 @@
+.button{
+  transition: color 0.3s ease, text-shadow 0.3s ease, box-shadow 0.3s ease;
+
+}
+.button:hover{
+  color:lavender;
+  background-color:rgba(255,255,255,0.2);
+  text-shadow: 0px 0.4rem 0.7rem steelblue;
+  box-shadow: rgba(1, 0, 0, 0.5) 0px 5px 10px 0px inset;
+}

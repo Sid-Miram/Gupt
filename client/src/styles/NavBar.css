@@ -1,0 +1,57 @@
+.Matrix {
+    position: absolute;
+    left: 0vw;
+}
+
+.Clickables {
+    position: absolute;
+    right: 20px;
+    font-size:1.5rem;
+}
+
+.Clickables > * {
+    margin-right: 8vw; /* Adjust spacing as needed */
+    font-weight:800;
+    letter-spacing:0.4vw;
+    font-size:1.5rem;
+
+
+}
+
+a{
+  text-decoration:None;
+  color:WhiteSmoke;
+  font-weight:700;
+  transition: color 0.3s ease-in-out, text-decoration 0.3s ease-in-out;
+}
+
+a:hover{
+  text-decoration:underline;
+  
+}
+
+
+.Matrix{
+  margin-left:24px;
+}
+
+.Clickables > *:last-child {
+    margin-right: 0;
+} 
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5rem;
+    padding: 10px;
+    box-sizing: border-box;
+    /*margin-top: 2vh; */
+}
+
+nav {
+    font-family: Orbitron;
+    animation: fadeIn 3s forwards;
+}
+
+
