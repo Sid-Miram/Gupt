@@ -1,5 +1,5 @@
 const User = require("../models/User.js");
-
+const jwt = require("jsonwebtoken");
 
 
 function handleError(err){
@@ -50,6 +50,45 @@ module.exports.signup_post = async (req,res) => {
   }
   
 }
+
+
+
+
+module.exports.delete_user = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOneAndDelete({ email });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (err) {
+    res.status(400).json({ error: "Error deleting user" });
+  }
+};
+
+
+module.exports.update_password = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    user.password = password;  // This will trigger the 'pre' hook to hash it
+    await user.save();
+
+    res.status(200).json({ message: "Password updated successfully" });
+  } catch (err) {
+    const errors = handleError(err);
+    res.status(400).json(errors);
+  }
+};
+
 
 module.exports.login_post = (req, res) => {
   console.log(req.body);
