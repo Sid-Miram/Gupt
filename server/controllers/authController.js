@@ -22,6 +22,14 @@ function handleError(err){
 
 }
 
+// token Creator 
+
+const maxAge = 4 * 24 * 60 * 60;
+const createToken = (_id) => {
+  return jwt.sign({_id},"why i'm like this", {
+    expiresIn: maxAge
+  });
+} 
 
 
 // controllers 
@@ -37,13 +45,15 @@ module.exports.signup_get = async (req, res) => {
 
 module.exports.login_get = (req, res) => {
   res.send("Continue Life");
-}
+}   
 
 module.exports.signup_post = async (req,res) => {
   const {email, password} = req.body;
   try{
     const user = await User.create({email, password});
-    res.status(201).json(user);
+    const token = createToken(user._id);
+    res.cookie('jwt', token, {httpOnly:true, maxAge: maxAge*1000, sameSite: 'None', secure:true});
+    res.status(201).json({user:user._id});
   } catch (err) {
     const errors = handleError(err);
     res.status(400).json(errors);
