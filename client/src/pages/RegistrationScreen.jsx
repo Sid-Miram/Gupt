@@ -21,6 +21,7 @@ function RegistrationScreen() {
     try {
       const res = await fetch("https://s47-sid-capstone-gupt.onrender.com/signup", {
         method: "POST",
+        credentials: "include",
         body: JSON.stringify({email, password}),
         headers: {'Content-type': 'application/json'},
         
