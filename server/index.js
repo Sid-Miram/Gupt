@@ -12,6 +12,7 @@ const port = process.env.PORT || 4000;
 
 
 //middleware 
+app.set("trust proxy", 1);
 
 app.use(cookieParser())
 app.use(express.json())
