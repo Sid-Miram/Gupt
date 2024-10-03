@@ -26,7 +26,7 @@ function handleError(err){
 
 const maxAge = 4 * 24 * 60 * 60;
 const createToken = (_id) => {
-  return jwt.sign({_id},"why i'm like this", {
+  return jwt.sign({_id},"Things change when you percieve things differently", {
     expiresIn: maxAge
   });
 } 
