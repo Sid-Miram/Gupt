@@ -1,8 +1,7 @@
-import styles from "../styles/RegistrationScreen.module.css";
-import { useState } from "react";
-import { Icon } from "@iconify-icon/react"; // Ensure MDI icons are imported
+import React, { useState } from "react";
+import styles from "../styles/RegistrationScreen.module.css"; // Adjust path as necessary
+import { Icon } from "@iconify-icon/react"; // Import MDI icons
 import { Toaster, toast } from "sonner";
-import isStrongPassword from "validator/es/lib/isStrongPassword";
 import isEmail from "validator/es/lib/isEmail";
 
 function DisplayPassword({ isDisplay }) {
@@ -13,16 +12,14 @@ function DisplayPassword({ isDisplay }) {
   );
 }
 
-function RegistrationScreen() {
+function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState(""); // New username state
   const [showPassword, setShowPassword] = useState(false);
 
-  // Handles form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    
     // Validate input fields
     if (!email) {
       toast.error("Please enter an email");
@@ -32,60 +29,43 @@ function RegistrationScreen() {
       toast.error("Please enter a valid email");
       return;
     }
-    if (!username) {
-      toast.error("Please enter a username");
-      return;
-    }
     if (!password) {
       toast.error("Please enter a password");
       return;
     }
-    if (!isStrongPassword(password)) {
-      toast.error("Please enter a strong password.");
-      return;
-    }
 
-    // Submit form
+    // Handle login submission here
     try {
-      const res = await fetch("http://localhost:4000/signup", {
+      const res = await fetch("http://localhost:4000/login", {
         method: "POST",
         credentials: "include",
-        body: JSON.stringify({ email, username, password }), // Include username
+        body: JSON.stringify({ email,  password }), // Include username
         headers: { "Content-type": "application/json" },
       });
       const data = await res.json();
-
       if(data.errors){
-        throw new Error(`Failed to register: ${data.errors.email}`);
+        throw new Error(`Error: ${data.errors.email}`);
       }
-      
-      if (!res.ok) {
-        throw new Error(`Failed to register: ${res.statusText}`);
+      if(!res.ok){
+        throw new Error(`Failed to Login : ${res.statusText}`)
       }
-      
-      toast.success("Registration successful!");
-      location.assign('/');
-      
-      
-    } catch (error) {
-      toast.error(`Error: ${error.message}`);
+      console.log(data);
+      toast.success("Logged In Successfully")
+
+    } catch(err){
+      toast.error(`Error: ${err.message}`);
     }
 
-    // Reset form fields after submission
+      
+
+    // Reset fields after submission
     setEmail("");
     setPassword("");
-    setUsername(""); // Reset username
   };
 
   return (
-    <div className={styles.Registration}>
+    <div className={styles.Login}>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Username" // Add Username field
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
         <input
           type="text"
           placeholder="Email"
@@ -108,7 +88,7 @@ function RegistrationScreen() {
           </button>
         </div>
         <button type="submit" className={styles.buttonClass}>
-          Connect Me!
+          Let me in!
         </button>
       </form>
       <Toaster richColors />
@@ -116,4 +96,4 @@ function RegistrationScreen() {
   );
 }
 
-export default RegistrationScreen;
+export default LoginScreen;

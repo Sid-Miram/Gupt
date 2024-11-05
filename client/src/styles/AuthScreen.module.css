@@ -1,0 +1,110 @@
+.authContainer {
+  display: flex;                
+  flex-direction: column;       
+  justify-content: center;      
+  align-items: center;          
+  height: 100vh;               
+  width: 100vw;                
+}
+
+/* New Button Container */
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.1); /* Transparent background */
+  border-radius: 16px; /* Smooth edges */
+  padding: 10px; /* Padding around buttons */
+}
+
+/* Toggle buttons for Login and Sign Up */
+.toggleButton {
+  padding: 10px 20px;
+  background-color: transparent; /* Make button background transparent */
+  border: none;
+  cursor: pointer;
+  margin: 0 5px;
+  color: lavender;
+  font-weight:bolder;
+  border-radius: 5px; /* Smooth edges */
+  transition: background-color 0.3s ease;
+}
+
+/* Active tab styling */
+.activeTab {
+  background-color: #4caf50; /* Highlight active tab */
+  color: white;
+}
+
+/* Hover effect for toggle buttons */
+.toggleButton:hover {
+  background-color: rgba(255, 255, 255, 0.3); /* Slightly darker on hover */
+}
+
+/* Screen wrapper for smooth transitions */
+.screenWrapper {
+  position: relative;
+  overflow: hidden;
+  height: 300px; 
+  width: 300px; /* Fixed width for forms */
+}
+
+/* Screen content */
+.screen {
+  position: absolute;
+  top: 0;
+  left: 100%; 
+  width: 100%;
+  transition: left 0.5s ease; 
+  opacity: 0; 
+}
+
+/* Active screen class for showing the correct screen */
+.activeScreen {
+  left: 0; 
+  opacity: 1; 
+}
+
+/* Form styles for smooth edges */
+form {
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex; 
+  flex-direction: column; 
+  border-radius: 16px; /* Ensure smooth edges */
+  overflow: hidden; /* Ensure child elements respect border radius */
+  background: rgba(255, 255, 255, 0.1); /* Match background style */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Input styles for consistency */
+input {
+  padding: 0.75rem;
+  border-radius: 8px; /* Ensure smooth edges */
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.2); 
+  color: white;
+}
+
+/* Button styles */
+.buttonClass {
+  padding: 0.75rem;
+  border-radius: 8px; 
+  border: none; 
+  background: rgba(255, 255, 255, 0.2); 
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.buttonClass:hover {
+  background: rgba(255, 255, 255, 0.4); /* Slightly darker on hover */
+}
+
+/* Password container styles */
+.passwordContainer {
+  display: flex; 
+  align-items: center; 
+  position: relative; 
+}

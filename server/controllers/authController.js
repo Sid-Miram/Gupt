@@ -5,6 +5,12 @@ const jwt = require("jsonwebtoken");
 function handleError(err){
   
   let errors = {email: "", password : ""}
+
+  // incorrect email or password
+  if(err.message.includes("incorrect email or password")){
+    errors["email"] = "incorrect email or password";
+    return errors;
+  }
   // duplication errors 
   if (err.code === 11000){
     errors["email"] = "This email is already registered.";
@@ -48,15 +54,15 @@ module.exports.login_get = (req, res) => {
 }   
 
 module.exports.signup_post = async (req,res) => {
-  const {email, password} = req.body;
+  const {username, email, password} = req.body;
   try{
-    const user = await User.create({email, password});
+    const user = await User.create({username, email, password});
     const token = createToken(user._id);
     res.cookie('jwt', token, {httpOnly:true, maxAge: maxAge*1000, sameSite: 'None'});
     res.status(201).json({user:user._id});
   } catch (err) {
     const errors = handleError(err);
-    res.status(400).json(errors);
+    res.status(400).json({errors});
   }
   
 }
@@ -100,9 +106,18 @@ module.exports.update_password = async (req, res) => {
 };
 
 
-module.exports.login_post = (req, res) => {
-  console.log(req.body);
-  res.send("Checking the Breath");
+module.exports.login_post = async (req, res) => {
+  const {email, password} = req.body;
+  try{
+    const user = await User.login(email,password);
+    const token = createToken(user._id);
+    res.cookie("jwt", token, {httpOnly:true, maxAge:maxAge*1000, sameSite:"None"});
+    res.status(201).json({user: user._id})
+  } catch(err){
+    console.log(err);
+    const errors =  handleError(err);
+    res.status(400).json({errors});
+  }
 }
 
 
