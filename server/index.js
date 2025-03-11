@@ -18,7 +18,7 @@ app.set("trust proxy", 1);
 app.use(cookieParser())
 app.use(express.json())
 app.use(cors({
-  origin: frontendUrl,
+  origin: `${frontendUrl}`,
   credentials: true, // This allows the server to accept cookies from the client
 }));
 
