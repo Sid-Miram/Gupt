@@ -196,6 +196,7 @@ module.exports.googleOAuthHandler = async (req, res) => {
       httpOnly: true,
       maxAge: maxAge * 1000,
       sameSite: "None",
+      secure: true
     })
 
     res.redirect(frontendUrl);
