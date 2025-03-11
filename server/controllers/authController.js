@@ -183,7 +183,7 @@ module.exports.googleOAuthHandler = async (req, res) => {
       provider: issuer,
     }
     console.log("posting data")
-    const response = await axios.post(`http://localhost:4000/api/auth/upsert`, userData, {
+    const response = await axios.post(`${serverUrl}/api/auth/upsert`, userData, {
       headers: {"Content-Type": "application/json",
       },
       withCredentials: true,
@@ -198,7 +198,7 @@ module.exports.googleOAuthHandler = async (req, res) => {
       sameSite: "None",
     })
 
-    res.redirect("http://localhost:5173");
+    res.redirect(frontendUrl);
 
   } catch(err) {
     throw new Error(err);
