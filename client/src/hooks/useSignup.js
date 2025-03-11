@@ -11,7 +11,6 @@ export const useSignup = () => {
     
     if (validationError) { 
       throw new Error(validationError);
-      return;
     }
 
     const provider = "local";
