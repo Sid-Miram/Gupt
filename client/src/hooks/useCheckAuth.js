@@ -10,6 +10,8 @@ export const useCheckAuth = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
+        console.log({serverUrl});
+        console.log(`${serverUrl}/jwt-verify`);
         const res = await fetch(`${serverUrl}/jwt-verify`, {
           method: "GET",
           credentials: "include",
