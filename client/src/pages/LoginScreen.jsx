@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import styles from "../styles/RegistrationScreen.module.css"; // Adjust path as necessary
-import { Icon } from "@iconify-icon/react"; // Import MDI icons
+import styles from "../styles/RegistrationScreen.module.css";
+import { Icon } from "@iconify-icon/react";
 import { Toaster, toast } from "sonner";
-import isEmail from "validator/es/lib/isEmail";
+import { useLogin } from "../hooks/useLogin.js";
+import getGoogleOAuthUrl from "../utils/getGoogleAuth.js";
+import { useNavigate } from "react-router-dom";
 
 function DisplayPassword({ isDisplay }) {
   return (
@@ -16,51 +18,20 @@ function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const { login } = useLogin();
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
-    // Validate input fields
-    if (!email) {
-      toast.error("Please enter an email");
-      return;
-    }
-    if (!isEmail(email)) {
-      toast.error("Please enter a valid email");
-      return;
-    }
-    if (!password) {
-      toast.error("Please enter a password");
-      return;
-    }
 
-    // Handle login submission here
     try {
-      const res = await fetch("http://localhost:4000/login", {
-        method: "POST",
-        credentials: "include",
-        body: JSON.stringify({ email,  password }), // Include username
-        headers: { "Content-type": "application/json" },
-      });
-      const data = await res.json();
-      if(data.errors){
-        throw new Error(`Error: ${data.errors.email}`);
-      }
-      if(!res.ok){
-        throw new Error(`Failed to Login : ${res.statusText}`)
-      }
-      console.log(data);
-      toast.success("Logged In Successfully")
-
-    } catch(err){
-      toast.error(`Error: ${err.message}`);
+      await login(email, password);
+      toast.success("Login Successful");
+      navigate("/")
+    } catch (err) {
+      toast.error(err.message);
+      throw new Error(err.message);
     }
-
-      
-
-    // Reset fields after submission
-    setEmail("");
-    setPassword("");
   };
 
   return (
@@ -90,6 +61,7 @@ function LoginScreen() {
         <button type="submit" className={styles.buttonClass}>
           Let me in!
         </button>
+        <a href={getGoogleOAuthUrl()}> Login With Google </a>
       </form>
       <Toaster richColors />
     </div>

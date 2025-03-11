@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "../styles/AuthScreen.module.css"; 
 import RegistrationScreen from "./RegistrationScreen.jsx";
 import LoginScreen from "./LoginScreen.jsx";
+import NavBar from "../components/NavBar.jsx";
 
 function AuthScreen() {
   const [isLogin, setIsLogin] = useState(true);

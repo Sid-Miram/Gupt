@@ -1,9 +1,9 @@
 import styles from "../styles/RegistrationScreen.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Icon } from "@iconify-icon/react"; // Ensure MDI icons are imported
 import { Toaster, toast } from "sonner";
-import isStrongPassword from "validator/es/lib/isStrongPassword";
-import isEmail from "validator/es/lib/isEmail";
+import { useSignup } from "../hooks/useSignup.js";
+import { useNavigate } from "react-router-dom";
 
 function DisplayPassword({ isDisplay }) {
   return (
@@ -18,63 +18,29 @@ function RegistrationScreen() {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState(""); // New username state
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false)
+  const { signup } = useSignup();
+  const navigate = useNavigate();
 
   // Handles form submission
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    
+    try{
+      setLoading(true)
+      await signup(email, username, password);
+      toast.success("Registration Succesful");
+      setLoading(false)
 
-    // Validate input fields
-    if (!email) {
-      toast.error("Please enter an email");
-      return;
-    }
-    if (!isEmail(email)) {
-      toast.error("Please enter a valid email");
-      return;
-    }
-    if (!username) {
-      toast.error("Please enter a username");
-      return;
-    }
-    if (!password) {
-      toast.error("Please enter a password");
-      return;
-    }
-    if (!isStrongPassword(password)) {
-      toast.error("Please enter a strong password.");
-      return;
-    }
+      navigate("/")
 
-    // Submit form
-    try {
-      const res = await fetch("http://localhost:4000/signup", {
-        method: "POST",
-        credentials: "include",
-        body: JSON.stringify({ email, username, password }), // Include username
-        headers: { "Content-type": "application/json" },
-      });
-      const data = await res.json();
-
-      if(data.errors){
-        throw new Error(`Failed to register: ${data.errors.email}`);
+      } catch(err) {
+        setLoading(false)
+        toast.error(err.message)
+        
       }
-      
-      if (!res.ok) {
-        throw new Error(`Failed to register: ${res.statusText}`);
-      }
-      
-      toast.success("Registration successful!");
-      location.assign('/');
-      
-      
-    } catch (error) {
-      toast.error(`Error: ${error.message}`);
-    }
-
-    // Reset form fields after submission
-    setEmail("");
-    setPassword("");
-    setUsername(""); // Reset username
+  
   };
 
   return (
@@ -107,8 +73,8 @@ function RegistrationScreen() {
             <DisplayPassword isDisplay={showPassword} />
           </button>
         </div>
-        <button type="submit" className={styles.buttonClass}>
-          Connect Me!
+        <button type="submit" className={styles.buttonClass} disabled = {loading}>
+          {loading ? "Connecting" : "Connect Me!"}
         </button>
       </form>
       <Toaster richColors />
