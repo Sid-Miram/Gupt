@@ -1,8 +1,9 @@
+import React, { useState } from "react";
 import styles from "../styles/RegistrationScreen.module.css";
-import { useState, useEffect } from "react";
-import { Icon } from "@iconify-icon/react"; // Ensure MDI icons are imported
+import { Icon } from "@iconify-icon/react";
 import { Toaster, toast } from "sonner";
-import { useSignup } from "../hooks/useSignup.js";
+import { useLogin } from "../hooks/useLogin.js";
+import getGoogleOAuthUrl from "../utils/getGoogleAuth.js";
 import { useNavigate } from "react-router-dom";
 
 function DisplayPassword({ isDisplay }) {
@@ -13,45 +14,29 @@ function DisplayPassword({ isDisplay }) {
   );
 }
 
-function RegistrationScreen() {
+function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState(""); // New username state
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false)
-  const { signup } = useSignup();
+  const { login } = useLogin();
   const navigate = useNavigate();
-
-  // Handles form submission
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
-    try{
-      setLoading(true)
-      await signup(email, username, password);
-      toast.success("Registration Succesful");
-      setLoading(false)
 
+    try {
+      await login(email, password);
+      toast.success("Login Successful");
       navigate("/")
-
-      } catch(err) {
-        setLoading(false)
-        toast.error(err.message)
-        
-      }
-  
+    } catch (err) {
+      toast.error(err.message);
+      throw new Error(err.message);
+    }
   };
 
   return (
-    <div className={styles.Registration}>
+    <div className={styles.Login}>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Username" // Add Username field
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
         <input
           type="text"
           placeholder="Email"
@@ -73,13 +58,14 @@ function RegistrationScreen() {
             <DisplayPassword isDisplay={showPassword} />
           </button>
         </div>
-        <button type="submit" className={styles.buttonClass} disabled = {loading}>
-          {loading ? "Connecting" : "Connect Me!"}
+        <button type="submit" className={styles.buttonClass}>
+          Let me in!
         </button>
+        <a href={getGoogleOAuthUrl()}> Login With Google </a>
       </form>
       <Toaster richColors />
     </div>
   );
 }
 
-export default RegistrationScreen;
+export default LoginScreen;
