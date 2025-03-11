@@ -5,7 +5,8 @@ export const useLogout = () => {
 
   const logout = async () => {
     try {
-      const res = await fetch("http://localhost:4000/logout", {
+      const serverUrl = import.meta.env.VITE_BASE_SERVER_URL;
+      const res = await fetch(`${serverUrl}/logout`, {
         method: "POST",
         credentials: "include", // Send cookies along with the request
       });
