@@ -15,7 +15,7 @@ export const useCheckAuth = () => {
           credentials: "include",
         });
         
-        const data = res.json();
+        const data = await res.json();
 
         if (res.ok) {
           setLogin();
